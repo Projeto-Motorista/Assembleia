@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("ADMIN")  // ADMIN, MODERATOR, VIEWER
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sessions Session[]
+  logs     ActivityLog[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+}
+
+model Member {
+  id           String   @id @default(uuid())
+  name         String
+  email        String?  @unique
+  phone        String?
+  address      String?
+  birthDate    DateTime?
+  memberSince  DateTime @default(now())
+  profilePhoto String?
+  active       Boolean  @default(true)
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  contributions Contribution[]
+  events        CalendarEvent[]
+
+  @@index([email])
+  @@index([phone])
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  color       String?
+  icon        String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  contributions Contribution[]
+}
+
+model Contribution {
+  id            String   @id @default(uuid())
+  memberId      String
+  categoryId    String
+  type          String   // DIZIMO, OFERTA, OFERTA_MISSIONARIA, EVENTO_ESPECIAL, DOACAO_ESPECIAL, OUTROS
+  amount        Float
+  paymentMethod String   // DINHEIRO, PIX, CARTAO_CREDITO, CARTAO_DEBITO, TRANSFERENCIA, CHEQUE, BOLETO
+  date          DateTime @default(now())
+  description   String?
+  receipt       String?  // Caminho do arquivo do comprovante
+  receiptUrl    String?  // URL do comprovante se usar cloud storage
+  verified      Boolean  @default(false)
+  verifiedBy    String?
+  verifiedAt    DateTime?
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  member   Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@index([memberId])
+  @@index([categoryId])
+  @@index([date])
+  @@index([type])
+}
+
+model CalendarEvent {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  datetime    DateTime
+  memberId    String?
+  member      Member?  @relation(fields: [memberId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([datetime])
+  @@index([memberId])
+}
+
+model Report {
+  id         String   @id @default(uuid())
+  title      String
+  type       String   // monthly, weekly, yearly, custom
+  startDate  DateTime
+  endDate    DateTime
+  data       String   // Dados do relatório em JSON como string
+  filePath   String?  // Caminho do arquivo PDF/Excel gerado
+  generatedBy String
+  createdAt  DateTime @default(now())
+
+  @@index([type])
+  @@index([startDate, endDate])
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String
+  entity    String   // member, contribution, report, etc
+  entityId  String?
+  details   String?  // JSON como string
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([entity])
+  @@index([createdAt])
+}
+
+model Setting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String   // JSON como string
+  updatedAt DateTime @updatedAt
+}

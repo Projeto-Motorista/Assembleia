@@ -1,0 +1,20 @@
+{
+  "name": "igreja-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:mobile": "cd mobile && npm run start",
+    "dev:web": "cd web && npm run dev",
+    "build:backend": "cd backend && npm run build",
+    "build:web": "cd web && npm run build",
+    "install:all": "npm install && cd backend && npm install && cd ../mobile && npm install && cd ../web && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.16.1",
+    "prisma": "^6.16.1"
+  }
+}

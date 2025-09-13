@@ -1,0 +1,79 @@
+import 'dotenv/config';
+import Fastify from 'fastify';
+import cors from '@fastify/cors';
+import jwt from '@fastify/jwt';
+import multipart from '@fastify/multipart';
+import fastifyStatic from '@fastify/static';
+import path from 'path';
+import { authRoutes } from './routes/auth';
+import { memberRoutes } from './routes/members';
+import { contributionRoutes } from './routes/contributions';
+import { categoryRoutes } from './routes/categories';
+import { reportRoutes } from './routes/reports';
+import { dashboardRoutes } from './routes/dashboard';
+import { uploadRoutes } from './routes/upload';
+import { eventRoutes } from './routes/events';
+
+const app = Fastify({
+  logger: true,
+});
+
+// Registrar plugins
+app.register(cors, {
+  origin: true,
+  credentials: true,
+});
+
+app.register(jwt, {
+  secret: process.env.JWT_SECRET || 'default-secret-change-this',
+});
+
+app.register(multipart, {
+  limits: {
+    fileSize: 10 * 1024 * 1024, // 10MB
+  },
+});
+
+// Servir arquivos estáticos (uploads)
+app.register(fastifyStatic, {
+  root: path.join(__dirname, '..', 'uploads'),
+  prefix: '/uploads/',
+});
+
+// Decorator para validar autenticação
+app.decorate('authenticate', async (request: any, reply: any) => {
+  try {
+    await request.jwtVerify();
+  } catch (err) {
+    return reply.status(401).send({ error: 'Não autorizado' });
+  }
+});
+
+// Rotas
+app.register(authRoutes, { prefix: '/api/auth' });
+app.register(memberRoutes, { prefix: '/api/members' });
+app.register(contributionRoutes, { prefix: '/api/contributions' });
+app.register(categoryRoutes, { prefix: '/api/categories' });
+app.register(reportRoutes, { prefix: '/api/reports' });
+app.register(dashboardRoutes, { prefix: '/api/dashboard' });
+app.register(uploadRoutes, { prefix: '/api/upload' });
+app.register(eventRoutes, { prefix: '/api/events' });
+
+// Health check
+app.get('/health', async () => {
+  return { status: 'ok', timestamp: new Date().toISOString() };
+});
+
+// Iniciar servidor
+const start = async () => {
+  try {
+    const port = Number(process.env.PORT) || 3333;
+    await app.listen({ port, host: '0.0.0.0' });
+    console.log(`🚀 Server running on http://localhost:${port}`);
+  } catch (err) {
+    app.log.error(err);
+    process.exit(1);
+  }
+};
+
+start();
