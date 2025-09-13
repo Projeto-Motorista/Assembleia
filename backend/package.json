@@ -4,8 +4,9 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsup src",
-    "start": "node dist/server.js",
+    "build": "npm run db:generate && tsup src",
+    "start": "npm run db:generate && node dist/server.js",
+    "postinstall": "npm run db:generate",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
     "db:studio": "prisma studio",
