@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://assembleia-de-deus-production.up.railway.app',
 });
 
 api.interceptors.request.use((config) => {
