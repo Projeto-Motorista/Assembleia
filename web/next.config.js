@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    API_URL: process.env.API_URL || 'http://localhost:3333',
+    API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://assembleia-de-deus-production.up.railway.app',
   },
   async rewrites() {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost:3333/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_API_URL || 'https://assembleia-de-deus-production.up.railway.app'}/api/:path*`,
       },
     ];
   },
