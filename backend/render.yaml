@@ -3,8 +3,8 @@ services:
     name: igreja-backend
     env: node
     plan: free
-    buildCommand: echo "No build needed"
-    startCommand: node server-http.js
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
