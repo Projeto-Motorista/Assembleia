@@ -6,8 +6,10 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "ts-node src/server.ts",
-    "build": "tsc",
-    "postinstall": "npm run build"
+    "build": "tsc || true",
+    "postinstall": "npm run build && npx prisma generate && npx prisma migrate deploy",
+    "migrate": "npx prisma migrate deploy",
+    "db:push": "npx prisma db push"
   },
   "engines": {
     "node": "18.x",
@@ -20,13 +22,13 @@
     "dotenv": "^16.3.1",
     "@prisma/client": "^5.6.0",
     "bcryptjs": "^2.4.3",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "typescript": "^5.2.2",
+    "@types/node": "^20.8.10",
+    "@types/bcryptjs": "^2.4.6"
   },
   "devDependencies": {
-    "typescript": "^5.2.2",
     "ts-node": "^10.9.1",
-    "@types/node": "^20.8.10",
-    "@types/bcryptjs": "^2.4.6",
     "prisma": "^5.6.0"
   },
   "keywords": [

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://assembleia-de-deus-backend-production.up.railway.app/api',
+  baseURL: 'https://dizimos-backend.onrender.com/api',
 });
 
 api.interceptors.request.use((config) => {
