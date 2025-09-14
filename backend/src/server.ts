@@ -16,16 +16,16 @@ const app = Fastify({
 });
 
 // CORS manual - mais controle
-app.addHook('onRequest', async (_request, reply) => {
+app.addHook('preHandler', async (request, reply) => {
   reply.header('Access-Control-Allow-Origin', '*');
   reply.header('Access-Control-Allow-Credentials', 'true');
   reply.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   reply.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-});
-
-// Responder OPTIONS para todas as rotas
-app.options('/*', async (_request, reply) => {
-  reply.status(204).send();
+  
+  if (request.method === 'OPTIONS') {
+    reply.status(204).send();
+    return;
+  }
 });
 
 app.register(jwt, {
