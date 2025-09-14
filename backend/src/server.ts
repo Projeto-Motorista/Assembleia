@@ -3,9 +3,9 @@ import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import jwt from '@fastify/jwt';
 import multipart from '@fastify/multipart';
-import fastifyStatic from '@fastify/static';
-import path from 'path';
-import fs from 'fs';
+// import fastifyStatic from '@fastify/static';
+// import path from 'path';
+// import fs from 'fs';
 import { authRoutes } from './routes/auth';
 import { memberRoutes } from './routes/members';
 import { contributionRoutes } from './routes/contributions';
@@ -37,15 +37,15 @@ app.register(multipart, {
   },
 });
 
-// Servir arquivos estáticos (uploads)
-const uploadsPath = path.join(__dirname, '..', 'uploads');
-if (!fs.existsSync(uploadsPath)) {
-  fs.mkdirSync(uploadsPath, { recursive: true });
-}
-app.register(fastifyStatic, {
-  root: uploadsPath,
-  prefix: '/uploads/',
-});
+// Servir arquivos estáticos (uploads) - comentado temporariamente
+// const uploadsPath = path.join(__dirname, '..', 'uploads');
+// if (!fs.existsSync(uploadsPath)) {
+//   fs.mkdirSync(uploadsPath, { recursive: true });
+// }
+// app.register(fastifyStatic, {
+//   root: uploadsPath,
+//   prefix: '/uploads/',
+// });
 
 // Decorator para validar autenticação
 app.decorate('authenticate', async (request: any, reply: any) => {
