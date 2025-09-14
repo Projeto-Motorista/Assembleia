@@ -1,11 +1,7 @@
 import 'dotenv/config';
 import Fastify from 'fastify';
-import cors from '@fastify/cors';
 import jwt from '@fastify/jwt';
 import multipart from '@fastify/multipart';
-// import fastifyStatic from '@fastify/static';
-// import path from 'path';
-// import fs from 'fs';
 import { authRoutes } from './routes/auth';
 import { memberRoutes } from './routes/members';
 import { contributionRoutes } from './routes/contributions';
@@ -19,25 +15,17 @@ const app = Fastify({
   logger: true,
 });
 
-// Registrar plugins - CORS simplificado
-app.register(cors, {
-  origin: true,
-  credentials: true
-});
-
-// Adicionar hook para garantir CORS em todas as respostas
-app.addHook('onSend', async (request, reply, payload) => {
-  reply.header('Access-Control-Allow-Origin', request.headers.origin || '*');
+// CORS manual - mais controle
+app.addHook('onRequest', async (_request, reply) => {
+  reply.header('Access-Control-Allow-Origin', '*');
   reply.header('Access-Control-Allow-Credentials', 'true');
   reply.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   reply.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  
-  if (request.method === 'OPTIONS') {
-    reply.status(204);
-    return '';
-  }
-  
-  return payload;
+});
+
+// Responder OPTIONS para todas as rotas
+app.options('/*', async (_request, reply) => {
+  reply.status(204).send();
 });
 
 app.register(jwt, {
