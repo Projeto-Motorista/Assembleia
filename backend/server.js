@@ -1,48 +1,58 @@
+console.log('🚀 Iniciando servidor...');
+
 const fastify = require('fastify')({ 
-  logger: true,
-  disableRequestLogging: false
+  logger: {
+    level: 'info'
+  }
 });
 
-// CORS simples
-fastify.addHook('onRequest', async (request, reply) => {
+console.log('✅ Fastify criado');
+
+// CORS
+fastify.addHook('preHandler', async (request, reply) => {
   reply.header('Access-Control-Allow-Origin', '*');
   reply.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   reply.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  if (request.method === 'OPTIONS') {
+    reply.status(200).send();
+    return;
+  }
 });
 
-// OPTIONS para todas as rotas
-fastify.options('*', async (request, reply) => {
-  reply.status(200).send();
-});
+console.log('✅ CORS configurado');
 
-// Endpoint raiz
-fastify.get('/', async (request, reply) => {
-  return {
-    message: 'Igreja Backend - Novo',
-    status: 'online',
+// Root
+fastify.get('/', async () => {
+  console.log('📍 Root endpoint chamado');
+  return { 
+    message: 'Igreja Backend API', 
+    status: 'running',
     timestamp: new Date().toISOString(),
-    version: '1.0.0'
+    version: '2.0.0'
   };
 });
 
-// Health check
-fastify.get('/health', async (request, reply) => {
-  return {
-    status: 'ok',
-    timestamp: new Date().toISOString()
+// Health
+fastify.get('/health', async () => {
+  console.log('❤️ Health endpoint chamado');
+  return { 
+    status: 'ok', 
+    timestamp: new Date().toISOString() 
   };
 });
 
-// Login endpoint
+// Login
 fastify.post('/api/auth/login', async (request, reply) => {
-  const body = request.body || {};
-  const { email, password } = body;
-
-  console.log('Login attempt:', { email, password });
-
+  console.log('🔐 Login endpoint chamado');
+  console.log('Body recebido:', request.body);
+  
+  const { email, password } = request.body || {};
+  
   if (email === 'admin@igreja.com' && password === 'Admin123!') {
-    const response = {
-      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJpYXQiOjE1MTYyMzkwMjJ9.fake-token',
+    console.log('✅ Login bem-sucedido');
+    return {
+      token: 'fake-jwt-token-123',
       user: {
         id: 1,
         name: 'Administrador',
@@ -50,46 +60,47 @@ fastify.post('/api/auth/login', async (request, reply) => {
         role: 'admin'
       }
     };
-    console.log('Login successful:', response);
-    return response;
   }
-
-  console.log('Login failed - invalid credentials');
+  
+  console.log('❌ Login falhou');
   reply.status(401);
   return { error: 'Credenciais inválidas' };
 });
 
-// Iniciar servidor
+console.log('✅ Rotas configuradas');
+
+// Start
 const start = async () => {
   try {
-    const port = Number(process.env.PORT) || 8080;
-    const host = '0.0.0.0';
+    const port = process.env.PORT || 8080;
+    console.log(`🔌 Tentando iniciar na porta: ${port}`);
     
-    await fastify.listen({ port, host });
+    await fastify.listen({ 
+      port: Number(port), 
+      host: '0.0.0.0' 
+    });
     
-    console.log('='.repeat(50));
-    console.log('🚀 SERVIDOR INICIADO COM SUCESSO!');
-    console.log(`📍 Host: ${host}`);
-    console.log(`🔌 Porta: ${port}`);
-    console.log(`🌐 URL: http://${host}:${port}`);
-    console.log(`❤️ Health: http://${host}:${port}/health`);
-    console.log(`🔐 Login: http://${host}:${port}/api/auth/login`);
-    console.log('='.repeat(50));
+    console.log('='.repeat(60));
+    console.log('🎉 SERVIDOR RODANDO COM SUCESSO!');
+    console.log(`🌐 Porta: ${port}`);
+    console.log(`📍 Host: 0.0.0.0`);
+    console.log('='.repeat(60));
     
   } catch (err) {
-    console.error('❌ ERRO AO INICIAR SERVIDOR:', err);
+    console.error('💥 ERRO FATAL:', err);
+    console.error('Stack:', err.stack);
     process.exit(1);
   }
 };
 
-// Capturar erros não tratados
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
+process.on('unhandledRejection', (reason) => {
+  console.error('💥 Unhandled Rejection:', reason);
 });
 
 process.on('uncaughtException', (error) => {
-  console.error('❌ Uncaught Exception:', error);
+  console.error('💥 Uncaught Exception:', error);
   process.exit(1);
 });
 
+console.log('🚀 Chamando start()...');
 start();
