@@ -21,11 +21,7 @@ const app = Fastify({
 
 // Registrar plugins
 app.register(cors, {
-  origin: [
-    'https://assembleia-de-deus-vila-maria.up.railway.app',
-    'http://localhost:3000',
-    'http://localhost:3007'
-  ],
+  origin: true, // Aceita qualquer origem
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
