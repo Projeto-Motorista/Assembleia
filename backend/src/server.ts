@@ -67,6 +67,11 @@ app.register(dashboardRoutes, { prefix: '/api/dashboard' });
 app.register(uploadRoutes, { prefix: '/api/upload' });
 app.register(eventRoutes, { prefix: '/api/events' });
 
+// Root endpoint
+app.get('/', async () => {
+  return { message: 'Igreja Backend API', status: 'running', timestamp: new Date().toISOString() };
+});
+
 // Health check
 app.get('/health', async () => {
   return { status: 'ok', timestamp: new Date().toISOString() };
@@ -76,9 +81,15 @@ app.get('/health', async () => {
 const start = async () => {
   try {
     const port = Number(process.env.PORT) || 8080;
-    await app.listen({ port, host: '0.0.0.0' });
-    console.log(`🚀 Server running on port ${port}`);
+    const host = '0.0.0.0';
+    
+    await app.listen({ port, host });
+    
+    console.log(`🚀 Server running on ${host}:${port}`);
+    console.log(`📍 Health check: http://${host}:${port}/health`);
+    console.log(`🔗 API endpoints: http://${host}:${port}/api/*`);
   } catch (err) {
+    console.error('❌ Failed to start server:', err);
     app.log.error(err);
     process.exit(1);
   }
