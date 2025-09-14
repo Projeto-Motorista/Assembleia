@@ -119,7 +119,7 @@ export const authRoutes: FastifyPluginAsync = async (app) => {
             action: 'CREATE_USER',
             entity: 'user',
             entityId: user.id,
-            details: { email, name, role },
+            details: JSON.stringify({ email, name, role }),
           },
         });
 

@@ -124,8 +124,12 @@ export const memberRoutes: FastifyPluginAsync = async (app) => {
 
         const member = await prisma.member.create({
           data: {
-            ...data,
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            address: data.address,
             birthDate: data.birthDate ? new Date(data.birthDate) : null,
+            notes: data.notes,
           },
         });
 

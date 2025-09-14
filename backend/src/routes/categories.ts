@@ -25,7 +25,14 @@ export const categoryRoutes: FastifyPluginAsync = async (app) => {
     { preHandler: [app.authenticate as any] },
     async (request: any, reply) => {
       const data = categorySchema.parse(request.body);
-      const category = await prisma.category.create({ data });
+      const category = await prisma.category.create({
+        data: {
+          name: data.name,
+          description: data.description,
+          color: data.color,
+          icon: data.icon,
+        }
+      });
       return reply.status(201).send(category);
     }
   );

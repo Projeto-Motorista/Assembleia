@@ -162,11 +162,11 @@ export const contributionRoutes: FastifyPluginAsync = async (app) => {
             action: 'CREATE_CONTRIBUTION',
             entity: 'contribution',
             entityId: contribution.id,
-            details: {
+            details: JSON.stringify({
               memberId: data.memberId,
               amount: data.amount,
               type: data.type,
-            },
+            }),
           },
         });
 
@@ -222,7 +222,7 @@ export const contributionRoutes: FastifyPluginAsync = async (app) => {
             action: 'UPDATE_CONTRIBUTION',
             entity: 'contribution',
             entityId: id,
-            details: data,
+            details: JSON.stringify(data),
           },
         });
 
@@ -268,7 +268,7 @@ export const contributionRoutes: FastifyPluginAsync = async (app) => {
             action: 'DELETE_CONTRIBUTION',
             entity: 'contribution',
             entityId: id,
-            details: { amount: contribution.amount },
+            details: JSON.stringify({ amount: contribution.amount }),
           },
         });
 
