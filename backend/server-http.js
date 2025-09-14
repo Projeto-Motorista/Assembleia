@@ -93,8 +93,12 @@ const server = http.createServer((req, res) => {
   res.end(JSON.stringify({ error: 'Not Found' }));
 });
 
-const port = process.env.PORT || 8080;
+const port = Number(process.env.PORT) || 3000;
 const host = '0.0.0.0';
+
+console.log(`🔍 PORT env: ${process.env.PORT}`);
+console.log(`🔍 Porta final: ${port}`);
+console.log(`🔍 Host: ${host}`);
 
 server.listen(port, host, () => {
   console.log('='.repeat(60));
@@ -102,7 +106,19 @@ server.listen(port, host, () => {
   console.log(`🌐 Porta: ${port}`);
   console.log(`📍 Host: ${host}`);
   console.log(`🔗 URL: http://${host}:${port}`);
+  console.log(`🌍 Railway URL: https://assembleia-de-deus-backend-production.up.railway.app`);
   console.log('='.repeat(60));
+}).on('listening', () => {
+  console.log('✅ Servidor está escutando na porta correta!');
+}).on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`❌ Porta ${port} já está em uso!`);
+  } else if (err.code === 'EACCES') {
+    console.error(`❌ Sem permissão para usar porta ${port}!`);
+  } else {
+    console.error('❌ Erro ao iniciar servidor:', err);
+  }
+  process.exit(1);
 });
 
 server.on('error', (err) => {
