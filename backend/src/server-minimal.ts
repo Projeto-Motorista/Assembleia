@@ -43,7 +43,7 @@ app.post('/api/auth/login', async (request, reply) => {
     };
   }
   
-  reply.status(401).send({ error: 'Credenciais inválidas' });
+  return reply.status(401).send({ error: 'Credenciais inválidas' });
 });
 
 // Iniciar servidor

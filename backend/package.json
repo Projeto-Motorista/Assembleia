@@ -4,10 +4,10 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc",
+    "build": "echo 'Build step skipped for minimal server'",
     "start": "tsx src/server-minimal.ts",
     "start-full": "npm run db:generate && node dist/server.js",
-    "postinstall": "npm run db:generate",
+    "build-full": "tsc",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
