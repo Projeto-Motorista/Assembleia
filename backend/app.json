@@ -1,0 +1,26 @@
+{
+  "name": "igreja-backend",
+  "description": "Backend da Igreja - Sistema de Gestão",
+  "repository": "https://github.com/juninhoblackk/assembleia-de-deus",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["node", "express", "heroku"],
+  "image": "heroku/nodejs",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "eco"
+    }
+  },
+  "addons": [],
+  "env": {
+    "NODE_ENV": {
+      "description": "Node environment",
+      "value": "production"
+    }
+  }
+}
