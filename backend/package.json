@@ -18,7 +18,7 @@
     "@fastify/jwt": "^8.0.0",
     "@fastify/multipart": "^8.1.0",
     "@fastify/static": "^7.0.0",
-    "@prisma/client": "^5.11.0",
+    "@prisma/client": "^6.16.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "fastify": "^4.26.2",
@@ -32,7 +32,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.11.30",
     "@types/pdfkit": "^0.13.3",
-    "prisma": "^5.11.0",
+    "prisma": "^6.16.1",
     "tsup": "^8.0.2",
     "tsx": "^4.20.5",
     "typescript": "^5.4.3"
