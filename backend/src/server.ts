@@ -21,10 +21,14 @@ const app = Fastify({
 
 // Registrar plugins
 app.register(cors, {
-  origin: (origin, cb) => {
-    cb(null, true); // Aceita qualquer origem
-  },
-  credentials: true
+  origin: true,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Content-Length', 'Content-Type'],
+  maxAge: 86400,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 });
 
 app.register(jwt, {
