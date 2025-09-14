@@ -4,13 +4,15 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "npm run db:generate && tsup src",
-    "start": "npm run db:generate && node dist/server.js",
+    "build": "tsc",
+    "start": "tsx src/server-minimal.ts",
+    "start-full": "npm run db:generate && node dist/server.js",
     "postinstall": "npm run db:generate",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
-    "db:studio": "prisma studio",
+    "db:push": "prisma db push",
     "db:seed": "tsx src/seed.ts",
+    "db:studio": "prisma studio",
     "create-admin": "node create-admin.js"
   },
   "dependencies": {
