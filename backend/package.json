@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "echo 'Build step skipped for minimal server'",
-    "start": "tsx src/server-minimal.ts",
+    "start": "node server.js",
     "start-full": "npm run db:generate && node dist/server.js",
     "build-full": "tsc",
     "db:migrate": "prisma migrate dev",
