@@ -184,8 +184,8 @@ export default function Login() {
                 <p className="text-yellow-100 font-semibold text-sm">🎭 Credenciais Sagradas de Demonstração</p>
               </div>
               <div className="space-y-1 text-xs">
-                <p className="text-yellow-200 font-mono bg-black/20 px-2 py-1 rounded">📧 Email: admin@igreja.com</p>
-                <p className="text-yellow-200 font-mono bg-black/20 px-2 py-1 rounded">🔑 Senha: Admin123!</p>
+                <p className="text-black font-mono bg-yellow-200/80 px-2 py-1 rounded font-bold">📧 Email: admin@igreja.com</p>
+                <p className="text-black font-mono bg-yellow-200/80 px-2 py-1 rounded font-bold">🔑 Senha: admin123</p>
               </div>
             </div>
 
