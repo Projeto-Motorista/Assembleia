@@ -84,13 +84,13 @@ export default function Login() {
                 <h1 className="text-3xl font-bold text-white drop-shadow-lg">
                   Assembleia de Deus
                 </h1>
-                <p className="text-white/90 font-medium">Vila Maria</p>
+                <p className="text-gray-400 font-medium">Vila Maria</p>
                 <div className="flex items-center justify-center space-x-2 mt-4">
                   <div className="h-1 w-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"></div>
                   <Star className="h-4 w-4 text-yellow-400 animate-pulse" />
                   <div className="h-1 w-8 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full"></div>
                 </div>
-                <p className="text-gray-300 text-sm mt-4 font-medium">
+                <p className="text-gray-400 text-sm mt-4 font-medium">
                   ✨ Sistema de Gestão Espiritual ✨
                 </p>
               </div>
