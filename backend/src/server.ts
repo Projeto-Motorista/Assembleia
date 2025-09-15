@@ -84,13 +84,16 @@ const createAdminUser = async () => {
     const bcrypt = await import('bcryptjs');
     const prisma = new PrismaClient();
     
+    console.log('🔍 Checking for admin user...');
+    
     const existingAdmin = await prisma.user.findUnique({
       where: { email: 'admin@igreja.com' }
     });
     
     if (!existingAdmin) {
+      console.log('👤 Creating admin user...');
       const hashedPassword = await bcrypt.hash('admin123', 10);
-      await prisma.user.create({
+      const newAdmin = await prisma.user.create({
         data: {
           email: 'admin@igreja.com',
           password: hashedPassword,
@@ -98,14 +101,20 @@ const createAdminUser = async () => {
           role: 'ADMIN'
         }
       });
-      console.log('✅ Admin user created: admin@igreja.com / admin123');
+      console.log('✅ Admin user created successfully:', newAdmin.email);
+      console.log('🔑 Login: admin@igreja.com / admin123');
     } else {
-      console.log('✅ Admin user already exists');
+      console.log('✅ Admin user already exists:', existingAdmin.email);
     }
+    
+    // Verificar total de usuários
+    const userCount = await prisma.user.count();
+    console.log(`📊 Total users in database: ${userCount}`);
     
     await prisma.$disconnect();
   } catch (error) {
     console.error('❌ Error creating admin user:', error);
+    console.error('Stack trace:', error.stack);
   }
 };
 
