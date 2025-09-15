@@ -84,7 +84,7 @@ export default function Login() {
                 <h1 className="text-3xl font-bold text-white drop-shadow-lg">
                   Assembleia de Deus
                 </h1>
-                <p className="text-white/90 font-medium">Vila Maria - São Paulo</p>
+                <p className="text-white/90 font-medium">Vila Maria</p>
                 <div className="flex items-center justify-center space-x-2 mt-4">
                   <div className="h-1 w-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"></div>
                   <Star className="h-4 w-4 text-yellow-400 animate-pulse" />
@@ -210,7 +210,7 @@ export default function Login() {
                           <Mail className="h-5 w-5 text-blue-600" />
                         </div>
                         <div className="flex-1">
-                          <p className="text-blue-800 font-semibold text-xs uppercase tracking-wide mb-1">Email Sagrado</p>
+                          <p className="text-gray-600 font-semibold text-xs uppercase tracking-wide mb-1">Email Sagrado</p>
                           <p className="text-black font-bold text-sm font-mono bg-blue-50 px-3 py-1 rounded-lg border border-blue-200">
                             admin@igreja.com
                           </p>
@@ -228,7 +228,7 @@ export default function Login() {
                           <Lock className="h-5 w-5 text-purple-600" />
                         </div>
                         <div className="flex-1">
-                          <p className="text-purple-800 font-semibold text-xs uppercase tracking-wide mb-1">Senha Divina</p>
+                          <p className="text-gray-600 font-semibold text-xs uppercase tracking-wide mb-1">Senha Divina</p>
                           <p className="text-black font-bold text-sm font-mono bg-purple-50 px-3 py-1 rounded-lg border border-purple-200">
                             admin123
                           </p>
