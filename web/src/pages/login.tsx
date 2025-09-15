@@ -178,15 +178,83 @@ export default function Login() {
             </form>
 
             {/* Demo Credentials */}
-            <div className="mt-8 p-4 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 backdrop-blur-sm border border-yellow-300/30 rounded-xl">
-              <div className="flex items-center space-x-2 mb-3">
-                <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
-                <p className="text-yellow-100 font-semibold text-sm">🎭 Credenciais Sagradas de Demonstração</p>
+            <div className="mt-8 relative overflow-hidden">
+              {/* Sacred Background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-yellow-50 to-orange-100 rounded-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/5 via-transparent to-blue-500/5 rounded-2xl"></div>
+              
+              {/* Decorative Border */}
+              <div className="absolute inset-0 rounded-2xl border-2 border-gradient-to-r from-amber-300/40 via-yellow-400/40 to-orange-300/40"></div>
+              
+              {/* Content */}
+              <div className="relative p-6 backdrop-blur-sm">
+                {/* Header with Cross */}
+                <div className="flex items-center justify-center space-x-3 mb-4">
+                  <div className="w-8 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+                  <div className="flex items-center space-x-2">
+                    <Cross className="h-5 w-5 text-amber-600 animate-pulse-slow" />
+                    <span className="text-amber-800 font-bold text-sm tracking-wide">CREDENCIAIS SAGRADAS</span>
+                    <Cross className="h-5 w-5 text-amber-600 animate-pulse-slow" />
+                  </div>
+                  <div className="w-8 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+                </div>
+                
+                {/* Credentials Cards */}
+                <div className="space-y-3">
+                  {/* Email Card */}
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-200/50 to-indigo-200/50 rounded-xl blur-sm group-hover:blur-none transition-all duration-300"></div>
+                    <div className="relative bg-white/80 backdrop-blur-sm border border-blue-200/60 rounded-xl p-4 hover:shadow-lg transition-all duration-300">
+                      <div className="flex items-center space-x-3">
+                        <div className="p-2 bg-blue-100 rounded-lg">
+                          <Mail className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-blue-800 font-semibold text-xs uppercase tracking-wide mb-1">Email Sagrado</p>
+                          <p className="text-black font-bold text-sm font-mono bg-blue-50 px-3 py-1 rounded-lg border border-blue-200">
+                            admin@igreja.com
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Password Card */}
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-200/50 to-pink-200/50 rounded-xl blur-sm group-hover:blur-none transition-all duration-300"></div>
+                    <div className="relative bg-white/80 backdrop-blur-sm border border-purple-200/60 rounded-xl p-4 hover:shadow-lg transition-all duration-300">
+                      <div className="flex items-center space-x-3">
+                        <div className="p-2 bg-purple-100 rounded-lg">
+                          <Lock className="h-5 w-5 text-purple-600" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-purple-800 font-semibold text-xs uppercase tracking-wide mb-1">Senha Divina</p>
+                          <p className="text-black font-bold text-sm font-mono bg-purple-50 px-3 py-1 rounded-lg border border-purple-200">
+                            admin123
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Sacred Footer */}
+                <div className="mt-4 text-center">
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="w-6 h-0.5 bg-gradient-to-r from-transparent to-amber-400"></div>
+                    <Star className="h-3 w-3 text-amber-500 animate-pulse" />
+                    <div className="w-6 h-0.5 bg-gradient-to-l from-transparent to-amber-400"></div>
+                  </div>
+                  <p className="text-amber-700 text-xs font-medium mt-2 italic">
+                    "Peça, e dar-se-vos-á; buscai, e encontrareis"
+                  </p>
+                </div>
               </div>
-              <div className="space-y-1 text-xs">
-                <p className="text-black font-mono bg-yellow-200/80 px-2 py-1 rounded font-bold">📧 Email: admin@igreja.com</p>
-                <p className="text-black font-mono bg-yellow-200/80 px-2 py-1 rounded font-bold">🔑 Senha: admin123</p>
-              </div>
+              
+              {/* Floating Decorative Elements */}
+              <div className="absolute top-2 right-2 w-2 h-2 bg-amber-400/60 rounded-full animate-pulse"></div>
+              <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-orange-400/60 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+              <div className="absolute top-1/2 left-1 w-1 h-1 bg-yellow-400/60 rounded-full animate-pulse" style={{animationDelay: '2s'}}></div>
             </div>
 
             {/* Sacred Footer */}
