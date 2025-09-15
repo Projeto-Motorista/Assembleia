@@ -140,7 +140,13 @@ export const contributionRoutes: FastifyPluginAsync = async (app) => {
 
         const contribution = await prisma.contribution.create({
           data: {
-            ...data,
+            memberId: data.memberId,
+            categoryId: data.categoryId,
+            type: data.type,
+            amount: data.amount,
+            paymentMethod: data.paymentMethod,
+            description: data.description,
+            notes: data.notes,
             date: data.date ? new Date(data.date) : new Date(),
           },
           include: {

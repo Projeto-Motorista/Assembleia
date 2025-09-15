@@ -7,7 +7,7 @@
     "start": "node dist/server.js",
     "dev": "ts-node src/server.ts",
     "build": "tsc || true",
-    "postinstall": "npm run build && npx prisma generate && npx prisma db push && node dist/prisma/seed.js",
+    "postinstall": "npm run build && npx prisma generate && npx prisma db push",
     "migrate": "npx prisma migrate deploy",
     "db:push": "npx prisma db push"
   },

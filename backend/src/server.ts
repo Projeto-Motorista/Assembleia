@@ -77,6 +77,38 @@ app.get('/health', async () => {
   return { status: 'ok', timestamp: new Date().toISOString() };
 });
 
+// Criar usuário admin se não existir
+const createAdminUser = async () => {
+  try {
+    const { PrismaClient } = await import('@prisma/client');
+    const bcrypt = await import('bcryptjs');
+    const prisma = new PrismaClient();
+    
+    const existingAdmin = await prisma.user.findUnique({
+      where: { email: 'admin@igreja.com' }
+    });
+    
+    if (!existingAdmin) {
+      const hashedPassword = await bcrypt.hash('admin123', 10);
+      await prisma.user.create({
+        data: {
+          email: 'admin@igreja.com',
+          password: hashedPassword,
+          name: 'Administrador',
+          role: 'ADMIN'
+        }
+      });
+      console.log('✅ Admin user created: admin@igreja.com / admin123');
+    } else {
+      console.log('✅ Admin user already exists');
+    }
+    
+    await prisma.$disconnect();
+  } catch (error) {
+    console.error('❌ Error creating admin user:', error);
+  }
+};
+
 // Iniciar servidor
 const start = async () => {
   try {
@@ -88,6 +120,9 @@ const start = async () => {
     console.log(`🚀 Server running on ${host}:${port}`);
     console.log(`📍 Health check: http://${host}:${port}/health`);
     console.log(`🔗 API endpoints: http://${host}:${port}/api/*`);
+    
+    // Criar admin user após servidor iniciar
+    await createAdminUser();
   } catch (err) {
     console.error('❌ Failed to start server:', err);
     app.log.error(err);
