@@ -90,7 +90,7 @@ export default function Login() {
                   <Star className="h-4 w-4 text-yellow-400 animate-pulse" />
                   <div className="h-1 w-8 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full"></div>
                 </div>
-                <p className="text-white/80 text-sm mt-4 font-medium">
+                <p className="text-gray-300 text-sm mt-4 font-medium">
                   ✨ Sistema de Gestão Espiritual ✨
                 </p>
               </div>
